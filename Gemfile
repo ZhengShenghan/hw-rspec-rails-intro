@@ -31,6 +31,7 @@ group :test do
 end
 
 group :production do
+  gem 'web-console'
   gem 'pg', '~> 0.2'
   gem 'rails_12factor'
 end
