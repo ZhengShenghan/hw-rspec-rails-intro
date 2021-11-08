@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'spec_helper'
 describe Movie do
   describe 'searching Tmdb by keyword' do
     it 'calls Faraday gem with CS169 domain' do

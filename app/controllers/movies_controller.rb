@@ -3,7 +3,30 @@ class MoviesController < ApplicationController
   #part 2
     def search_tmdb
       #Movie.find_in_tmdb(params[:search_terms])
-      @movie = Movie.find_in_tmdb(params[:search_terms])
+      #
+      #
+      #@movies = Movie.find_in_tmdb(params[:search_terms])
+      
+      
+      if (params[:title] == '' && params[:language] != '')
+        flash[:alert] = "Please fill in all required fields!"
+      end
+      if (params[:language] != nil)
+        @movies = Movie.find_in_tmdb(params.slice(:title, :release_year, :language))
+        if (@movies != nil && @movies['total_results'] == 0)
+          flash[:alert] = "No movies found with given parameters!"
+        end
+        @movies = @movies['results']
+      end
+    end
+  #
+  
+  # add_movie
+    def add_movie
+      m = Movie.create(title: params[:title], rating: params[:rating],
+      release_date: params[:release_date])
+      flash[:notice] = "#{m.title} was successfully added to RottenPotatoes."
+      redirect_to search_tmdb_path
     end
   #
     def show
@@ -26,6 +49,7 @@ class MoviesController < ApplicationController
     def new
       # default: render 'new' template
     end
+
   
     def create
       @movie = Movie.create!(movie_params)

@@ -25,6 +25,7 @@ describe MoviesController do
           and_return(@fake_results)
          get :search_tmdb, {:search_terms => 'hardware'}
        end
+       
        describe 'after valid search' do
          before :each do
            allow(Movie).to receive(:find_in_tmdb).and_return(@fake_results)
@@ -36,6 +37,12 @@ describe MoviesController do
          it 'makes the TMDb search results available to that template' do
            expect(assigns(:movies)).to eq(@fake_results)
          end
+         #
+         
+        it 'calls Tmdb with valid API key' do
+          Movie.find_in_tmdb({title: "hacker", language: "en"})
+        end
+         #
        end
      end
 end

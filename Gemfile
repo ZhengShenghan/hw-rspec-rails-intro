@@ -27,6 +27,7 @@ end
 gem 'faraday'  # in main group; simplifies calling TMDb
 group :test do
   gem 'rails-controller-testing'
+  gem "webmock"
   gem 'guard-rspec'                 # automates re-running tests
 end
 
